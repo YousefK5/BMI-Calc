@@ -18,7 +18,7 @@ export default class Form extends Component {
           bmi:
             this.state.weight /
             (((this.state.height / 100) * this.state.height) / 100),
-            calc:true
+          calc:true
         });
       };
     
@@ -37,6 +37,7 @@ export default class Form extends Component {
         return (
           <div className="container content">
             <h1>BMI Calculator</h1>
+            <input type="checkbox" name="choose" id="" />
     
             <form onSubmit={this.handleSubmit} className="w-50 mx-auto">
               <div className="mb-3">
