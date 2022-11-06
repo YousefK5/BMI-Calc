@@ -36,14 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-.header , .footer {
-  background-color: black;
-  color: white;
-  padding: 20px;
-}
-
-.content {
-  min-height: 70vh;
-  text-align: center;
-}
