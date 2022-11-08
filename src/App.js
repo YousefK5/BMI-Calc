@@ -6,7 +6,12 @@ import Table from './Components/pagination/Table';
 import UnstyledTable from './Components/pagination/TablePagination';
 import FormF from './Components/bmi-function/FormF';
 import Tours from './Components/tourism/Tours';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route , Navigate , useNavigate} from 'react-router-dom';
+import { useState , useEffect} from 'react';
+import TourDetails from './Components/tourism/TourDetails';
+import Home from './Components/Pages/Home';
+import Books from './Components/books/Books';
+import BooksData from './Components/books/data.json';
 
 function App() {
   const students = [{
@@ -71,15 +76,50 @@ function App() {
     "gender": "Agender"
   }];
 
+  const [curTour , setCurTour] = useState({});
+  const [curForm , setCurForm] = useState('func');
+  const [books, setBooks] = useState([]);
+
+  const navi = useNavigate();
+
+  const showTourDetail = (place) => {
+    setCurTour(place);
+    navi('/tourism/detail');
+  }
+
+  const toggleForm = () => {
+    if(curForm == 'func') {
+      setCurForm('class');
+    } 
+    else {
+      setCurForm('func');
+    }
+  }
+
+  console.log(BooksData);
+
+  useEffect(() => {
+    setBooks(BooksData.eBooks);
+  }, [])
+
+  function handelSearch(e) {
+
+    const result = BooksData.eBooks.filter(b => { return b.language.toLowerCase().includes(e.toLowerCase()) });
+    setBooks(result)
+  }
+
+
   return (
     <>
-      <Header name="Ahmed" age="22"/>
-      <Routes>
-        <Route exact path='/bmi-calc' element={<FormF />} />
+      <Header name="Ahmed" age="22" handelSearch={handelSearch}/>
+      <Routes >   
+        <Route exact path='/' element={<Home />} />
+        <Route exact path='/bmi-calc' element={curForm==='func' ? <FormF toggleForm={toggleForm}/> : <Form toggleForm={toggleForm}/>} />
         {/* <Route exact path='/table-pagination' element={<Table data={students} />} /> */}
         <Route exact path='/table-pagination' element={<UnstyledTable />} />
-        <Route exact path='/tourism' element={<Tours />} />
-
+        <Route exact path='/tourism' element={<Tours func ={showTourDetail}/>} />
+        <Route exact path='/tourism/detail' element={<TourDetails place ={curTour}/>} />
+        <Route exact path='/books' element={<Books books={books}/>} />
       </Routes>
       <Footer year='2022'/> 
     </>

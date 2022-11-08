@@ -1,50 +1,43 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export default class Footer extends Component {
-    constructor() {
-        super();
-        console.log("Constructer Function");
-        this.state = {
-            title : "Footer Component",
-            count : 0
-        }
-    }
+  constructor() {
+    super();
+    // console.log("Constructer Function");
+    this.state = {
+      title: "Footer Component",
+      count: 0,
+    };
+  }
 
+  componentDidMount() {
+    // console.log("Mount");
+  }
 
+  handleClick = () => {
+    // console.log(this.state.count);
+    setTimeout(() => {
+      this.setState({
+        title: "New Footer",
+        count: this.state.count + 1,
+      });
+    }, 3000);
+  };
 
-    componentDidMount() {
-        console.log("Mount");
-    }
+  componentDidUpdate(prevProps, prevState) {
+    // console.log("Update" , prevProps , prevState);
+  }
 
-    handleClick = () => {
-        // console.log(this.state.count);
-        setTimeout(() => {
-            this.setState({
-                title : "New Footer" ,
-                count : this.state.count+1,
-            })
-        }, 3000);
-    }
-
-    componentDidUpdate(prevProps , prevState) {
-        console.log("Update" , prevProps , prevState);
-    }
-
-    componentWillUnmount() {
-        console.log("Delete");
-    }
+  componentWillUnmount() {
+    // console.log("Delete");
+  }
 
   render() {
-    console.log("Render Function");
+    // console.log("Render Function");
     return (
-      <div className='footer'>
+      <div className="footer">
         <h1>Footer Copyright &copy; {this.props.year}</h1>
-        {/* <h1>{this.state.title}</h1>
-        <h1>You clicked {this.state.count} times</h1>
-        <button onClick={this.handleClick}>
-            Click me
-        </button> */}
       </div>
-    )
+    );
   }
 }
